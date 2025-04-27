@@ -4,6 +4,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const messageDiv = document.getElementById("message");
 
+  // Dark mode toggle logic
+  const darkModeToggle = document.getElementById("dark-mode-toggle");
+  const body = document.body;
+
+  function setDarkMode(enabled) {
+    if (enabled) {
+      body.classList.add("dark-mode");
+      darkModeToggle.textContent = "☀️";
+    } else {
+      body.classList.remove("dark-mode");
+      darkModeToggle.textContent = "🌙";
+    }
+    localStorage.setItem("darkMode", enabled ? "1" : "0");
+  }
+
+  // Initialize dark mode from localStorage
+  const darkModePref = localStorage.getItem("darkMode") === "1";
+  setDarkMode(darkModePref);
+
+  darkModeToggle.addEventListener("click", () => {
+    setDarkMode(!body.classList.contains("dark-mode"));
+  });
+
   // Function to fetch activities from API
   async function fetchActivities() {
     try {
